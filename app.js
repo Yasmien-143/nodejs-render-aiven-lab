@@ -13,7 +13,10 @@ const db = mysql.createConnection({
 
 app.get("/", (req, res) => {
   db.query("SELECT NOW()", (err, result) => {
-    if(err) throw err;
+    if (err) {
+      console.error(err);
+      return res.send("Database connection failed");
+    }
     res.send("Database Connected Successfully: " + result[0]["NOW()"]);
   });
 });
